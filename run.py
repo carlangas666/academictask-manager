@@ -1,10 +1,11 @@
-from flask import Flask
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from app.routes import router
 
-app = Flask(__name__)
+app = FastAPI(title="AcademicTask Manager")
 
-@app.route("/")
-def index():
-    return "Sistema de gestión de proyectos académicos"
+# Archivos estáticos (CSS, JS)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# Rutas
+app.include_router(router)
